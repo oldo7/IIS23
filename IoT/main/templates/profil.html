@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} Profil {% endblock %}
+{% block content %}
+    Meno: {{ user.username }} <br></br>
+    Zmenit heslo: <br></br>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit", name="ulozit"> Ulozit </button>
+    </form> 
+{% endblock %}

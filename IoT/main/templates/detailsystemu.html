@@ -1,0 +1,140 @@
+<style>
+  .button {
+      position: absolute;
+      margin-top: 3%;
+      right: 25%;
+      font-size: 18px;
+  }
+
+  .parametre{
+      font-size: 20px;
+      margin-left: 40px;
+  }
+  
+  tr {
+   line-height: 25px;
+   min-height: 25px;
+   height: 25px;
+   margin-bottom: 0px;
+  }
+</style>
+
+{% extends 'base.html' %}
+{% block title %} Detail systemu {% endblock %}
+{% block content %}
+{% if user.id == owner.id %}
+<div class = "button">
+  <a href="/DetailSystemu/{{system.id}}/add" class="btn btn-primary">Pridat zariadenie</a>
+   &emsp;
+   <a href="/DetailSystemu/{{system.id}}/edit" class="btn btn-primary">Upravit system</a>
+</div>
+{% endif %}
+
+<div style="padding-top: 25px">
+  <h3> System: <b>{{ system.nazov }} </b></h3>
+</div>
+{% if user.id == owner.id %}
+{{ system.popis }} <br></br>
+Vlastnik: {{ owner.username }} (Vy) <br></br>
+<div style="margin-right: 15%; margin-left: 15%;">
+  <h4>Zariadenia:</h4>
+  
+  <table class="table table-sm">
+      <tbody>
+      {% for z in zariadenia %}
+      <span class="lolec"></span>
+        <tr>
+          
+          <td style="width: 30%;"><b><span style="font-size: 21px;"><a href="/ShowDevices/{{ z.id }}">{{ z.nazov }}</span></td>
+          <td style="width: 30%">{{ z.alias }}</td>
+          <td style="width: 35%">{{ z.popis }}</td>
+          <td style="width: 5%">
+                  <button form="test" type="submit" name="del" value={{ z.id }} class="btn btn-danger btn-sm">Odstranit</button>
+          </td>
+          
+        </tr>
+      </span>
+        <tr>
+          <td colspan="2"><div class="parametre"><ul>
+            {% for p in z.parameter_set.all %}
+              <li>{{ p.nazov }}:&ensp;<b>{{ p.hodnota }}</b>
+                <span style="left: 43%; position: absolute; text-align: left;">
+                {% if p.kpi_typ == 1 %}
+                  {% if p.kpi_hodnota >= p.hodnota %}
+                    <span style="color: green">V poriadku</span>
+                  {% else %}
+                    <span style="color: red">Chyba</span>
+                  {% endif %}
+                {% elif p.kpi_typ == 2 %}
+                  {% if p.kpi_hodnota <= p.hodnota %}
+                  <span style="color: green">V poriadku</span>
+                  {% else %}
+                  <span style="color: red">Chyba</span>
+                  {% endif %}
+                {% endif %}
+                </span>
+              </li>
+            {% endfor %}
+            </ul></div> </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+
+<form id=test method="POST">
+  {%csrf_token%}
+</form>
+
+
+
+
+{% else %}
+Vlastnik: {{ owner.username }} <br></br>
+<div style="margin-right: 15%; margin-left: 15%;">
+<span class="bottom-three">
+  <h4>Zariadenia:</h4>
+  
+  <table class="table">
+      <tbody>
+      {% for z in zariadenia %}
+        <tr>
+          <td style="width: 30%;"><b><span style="font-size: 21px;">{{ z.nazov }}</span></b></td>
+          <td style="width: 30%">{{ z.alias }}</td>
+          <td style="width: 40%">{{ z.popis }}</td>
+        </tr>
+        <tr>
+          <td colspan="2"><div class="parametre"><ul>
+            {% for p in z.parameter_set.all %}
+              <li>{{ p.nazov }}: {{ p.hodnota }}
+                <span style="left: 55%; position: absolute; text-align: left;">
+                {% if p.kpi_typ == 1 %}
+                  {% if p.kpi_hodnota >= p.hodnota %}
+                    <span style="color: green">V poriadku</span>
+                  {% else %}
+                    <span style="color: red">Chyba</span>
+                  {% endif %}
+                {% elif p.kpi_typ == 2 %}
+                  {% if p.kpi_hodnota <= p.hodnota %}
+                  <span style="color: green">V poriadku</span>
+                  {% else %}
+                  <span style="color: red">Chyba</span>
+                  {% endif %}
+                {% endif %}
+                </span>
+              </li>
+            {% endfor %}
+            </ul></div> </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</span>
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}

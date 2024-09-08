@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Edit Device {{device.name}} {% endblock %}
+
+{% block content %}
+<form method="POST" action="#">
+{% csrf_token %}
+<input type="hidden" name="id" value="{{device.id}}" />
+<table>
+    {% if params %}
+    <tr>
+        <th>parameter name</th>
+        <th>parameter value</th>
+        <th>KPI type</th>
+        <th>KPI value</th>
+    </tr>
+    {% endif %}
+    {% for parameter in params %}
+    <tr>
+        <td><label for="n{{parameter.id}}" style="display: inline;">meno:</label>
+        <input type="text" name="n{{parameter.id}}" value="{{parameter.nazov}}" > </td>
+        <td><label for="v{{parameter.id}}" style="display: inline;">{{parameter.nazov}} hodnota</label>
+        <input type="text" name="v{{parameter.id}}" value="{{parameter.hodnota}}" > </td>
+        <td><label for="k{{parameter.id}}" style="display: inline;">{{parameter.nazov}} KPI</label>
+        <input type="text" name="k{{parameter.id}}" value="{{parameter.kpi_typ}}" > </td> 
+        <td><label for="kv{{parameter.id}}" style="display: inline;">{{parameter.nazov}} KPI hodnota</label>
+        <input type="text" name="kv{{parameter.id}}" value="{{parameter.kpi_hodnota}}" > </td>
+    </tr>
+    {% endfor %}
+    <p>KPI hint: zapis 2 ak chces KPI ma hlasit true pri hodnote vacsej ako KPI hodnote, 1 ak menej, cokolvek ine pre vypnutie KPI</p>
+</table>
+
+
+<button type="submit" name="newParameter"> New Parameter </button>
+<button type="submit", name="Save"> Save changes </button>
+
+
+</form>
+{% endblock %}

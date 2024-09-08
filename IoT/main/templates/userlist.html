@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load diclookup %}
+{% block title %} Poziadat o system {% endblock %}
+{% block content %}
+<h2>Vyberte uzivatela, od ktoreho chcete poziadat system:</h2>
+<table class="table table-bordered table-striped w-auto">
+    <thead>
+      <tr>
+        <th scope="col" class="w-auto">User name</th>
+        <th scope="col" class="w-auto">System count</th>
+        <th scope="col" class="w-auto">View systems</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for dbUser in users %}
+        {% with userId=dbUser.id %}
+        {% if user.id != dbUser.id %}
+      <tr>
+        <td>{{ dbUser.username }}</td>
+        <td>{{userSystemCount|get_item:userId}}</td>
+        <td><a href="/user/{{dbUser.id}}/systems/" class="btn btn-primary">View systems</a></td>
+      </tr>
+        {% endif %}
+        {% endwith %}
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

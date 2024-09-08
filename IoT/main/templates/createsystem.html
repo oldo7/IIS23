@@ -1,0 +1,28 @@
+<style>
+    .forma {
+        margin-top: 3%;
+        font-size: 20px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+</style>
+
+{% extends 'base.html' %}
+{% block title %} Vytvorit system {% endblock %}
+{% block content %}
+<div class="forma">
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="nazov">Názov</label>
+        <input type="text" class="form-control form-control-lg" id="nazov" name="nazov" placeholder="Názov systému">
+    </div>
+    <div class="form-group">
+      <label for="popis">Popis</label>
+      <input type="text" class="form-control form-control-lg" id="popis" name="popis" placeholder="Popis systému">
+    </div>
+    <button type="submit" name="ulozit" class="btn btn-primary btn-lg">Uložiť</button>
+  </form>
+</div>
+{% endblock %}

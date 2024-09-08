@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class=" franwkfefh idc0_349"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+
+<h1>IoT: správa zařízení</h1> 
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Matúš Dobiáš 
+	    <a href="mailto:xdobia15@stud.fit.vutbr.cz">xdobia15@stud.fit.vutbr.cz</a> -
+		zariadenia; parametre; ERD; dokumentácia; deployment
+	</dd>
+	<dd>Richard Blažo 
+	    <a href="mailto:xblazo00@stud.fit.vutbr.cz">xblazo00@stud.fit.vutbr.cz</a> - 
+        Admin, Broker, User, sidebar, prihlasovanie,
+	</dd>
+  <dd>Oliver Nemček 
+	    <a href="mailto:xnemce08@stud.fit.vutbr.cz">xnemce08@stud.fit.vutbr.cz</a> - 
+		registracia; zmena hesla; pridavanie, uprava a mazanie systémov zariadení
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.iis-xdobia15.com/">http://www.iis-xdobia15.com/</a></dd>
+	
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelú</strong>.</p>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>lesnar17</td><td>kolohousenka</td><td>Administrátor</td></tr>
+<tr><td>broker</td><td>broker</td><td>broker</td></tr>
+<tr><td>matej</td><td>matej</td><td>User</td></tr>
+<tr><td>ronnie</td><td>ronnie</td><td>User</td></tr>
+</tbody></table>
+<p>Je možné si zaregistrovať nových uživateľov a z administrátorského účtu si priradiť práva</p>
+<p>(Diagram případů užití není nutné vkládat, pokud IS implementuje role a případy užití definované zadáním.)</p> 
+
+<h3>Video</h3>
+    
+    <p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p> 
+    
+    <h2>Implementace</h2>
+    <p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+    
+    <h3>Databáze</h3>
+    
+    <img src="erd.png" alt="ERD" width="40%" >
+    
+    <h2>Instalace</h2>
+    
+    Stručně popište: - TODO
+    <ul>
+    <li>postup instalace na server:</li>
+    <li>softwarové požadavky: Python3, </li>
+    <li>Python modules: Django 3.2, pymysql</li>
+    <li>Adresárová štruktúra:
+        IoT/
+        ├── IoT/
+        │   ├── __init__.py
+        │   ├── asgi.py
+        │   ├── settings.py
+        │   ├── urls.py
+        │   └── wsgi.py
+        ├──main/
+        │   ├── management/
+        │   │    └── commands/
+        │   │        └── seed.py
+        │   ├── migrations/ -- vygenerovane pomocou makemigrations, migrate
+        │   ├── templates/ -- html templates
+        │   ├── templatetags/ -- custom template tags
+        │   ├── __init__.py
+        │   ├── admin.py
+        │   ├── apps.py
+        │   ├── models.py
+        │   ├── tests.py
+        │   ├── urls.py
+        │   └── views.py
+        └── manage.py
+    </li>
+    <li> Po stiahnutí projektu, inštalácií modulov a replikácií adresárovej štruktúri je potrebné vytvoriť migrácie a naseedovať databázu. 
+        V IoT/ - python3 manage.py makemigrations, python3 manage.py migrate, python3 manage.py seed
+    </li>
+    <li> Po úspešnej inštalácií je možné spustiť server pomocou python3 manage.py runserver </li>
+    </ul>
+    
+    <h2>Známé problémy</h2>
+    <p>Naša databáza je na nejakom free trial učte na nejakom cloude. 
+       V prípade, že zrazu bude nedostupná, treba v IoT/IoT/settings.py zmeniť databázu na inú mysql databázu, 
+       vytvoriť migrácie ( v IoT/ - python3 manage.py makemigrations, python3 manage.py migrate) a 
+       naseedovať databázu ( v IoT/ - python3 manage.py seed ).
+    </p>
+    
+    
+    
+    </body></html>

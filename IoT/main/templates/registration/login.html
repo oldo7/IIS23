@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Prihlásenie {% endblock %}
+{% block content %}
+
+<div style="margin-right: 20%; margin-top: 3%; margin-left:1% ;">
+<h4>Prihlásiť</h4>
+<form method="post" class="form">
+    {%csrf_token%}
+    <div class="fieldWrapper">
+        {{ form.username.errors }}
+        <label for="{{ form.username.id_for_label }}">Meno:</label>
+        {{ form.username }}
+    </div>
+    <div style="margin-top: 1%;">
+        {{ form.password.errors }}
+        <label for="{{ form.password.id_for_label }}">Heslo:</label>
+        {{ form.password }}
+    </div>
+    {{ form.non_field_errors }}
+    <div style="margin-top: 1%;"></div>
+    <button type="submit" class="btn btn-success">Prihlásiť</button> &emsp;
+    <a href="/registracia" class="btn btn-primary">Registrovať</a>
+    </div>
+</form>
+<a href="/metadata" class="btn btn-primary" style="margin-left: 1%; margin-top: 2%;">Základné metadata systému</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} {{user}}'s devices {% endblock %}
+{% block content %}
+<h2>My devices:</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 20%">Nazov</th>
+        <th scope="col" style="width: 15%">Alias</th>
+        <th scope="col" style="width: 25%">Popis</th>
+        <th scope="col" style="width: 20%">System</th>
+        <th scope="col" style="width: 20%">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for device in devices %}
+      <tr>
+        <td><a href="/ShowDevices/{{device.id}}">{{ device.nazov }}</a></td>
+        <td>{{ device.alias }}</td>
+        <td>{{ device.popis }}</td>
+        <td><a href="/DetailSystemu/{{device.system.id}}">{{ device.system.nazov }}</a></td>
+        <td><form method="POST">
+          {% csrf_token %}
+        <button type="submit" name="delete" value={{ device.id }} class="btn btn-danger">Delete</button></form></td>
+      </tr>
+        {% endfor %}
+    </tbody>
+  </table>    
+    <a href="/CreateDevice">Add new device</a>
+{% endblock %}

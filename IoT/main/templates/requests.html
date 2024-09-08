@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %} Ziadosti o system {% endblock %}
+{% block content %}
+    <p>Ziadosti o system:</p>
+    {% for y in systemy %}
+        <form method="POST">
+            {%csrf_token%}
+            {{ y.system.nazov }} - Vyziadane od uzivatela {{ y.user.username }} &emsp;
+            <button name="conf" type="submit" value={{ y.id }} >Potvrdit</button>
+            <button name="deny" type="submit" value={{ y.id }} >Odmietnut</button>
+        </form> 
+    {% endfor %}
+{% endblock %}

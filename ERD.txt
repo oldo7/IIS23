@@ -1,0 +1,25 @@
+Neregistrovany: (defaultny home screen)
+Vidi vsetky systemy(?), vidi prihlasit sa button.
+
+Registrovany uzivatel:
+Domovska obrazovka:
+	Zobrazenie mojich systemov - ZObrazenie vsetkych systemov ktorych je spravca a ku ktorym ma pristup videnia. ku kazdemu systemu su vypisane jeho zariadenia a ci su pri zariadeniach splnene na jednotlivych parametroch KPI. Na 		kazdy system sa da kliknut, co nas da do detailu systemu.
+	Pridat system button - (zhluk zariadeni) - stane sa spravcom, ktory vie prenechat moznost ostatnym sledovat tento sytem. Spravca je ten co system vytvoril.
+	Ziadosti o system button - povolit/odmietnut
+	Poziadat o system button - (napr. podla ID)
+	Zariadenia button - prejde na zariadenia obrazovku
+Detail systemu obrazovka - je tam moznost pridat zariadenie do systemu (vyberie sa zo zoznamu existujucich a tlacitkom sa prida do daneho systemu)
+	zoznam vsetkych zariadeni v danom systeme, moznost ich odobrat alebo sa na nich prekliknut, co nas hodi na detail zariadenia
+Zariadenia obrazovka:
+	Zoznam vsetkych mojich zariadeni. Da sa na ne kliknut co nas hodi na detail zariadenia.
+	Pridat zariadenie button - Pridat zariadenie, k nemu pripadne KPI - Pridat KPI - v nom si zvoli parameter nejakeho zariadenia a definuje funkciu nad nim, ktora vrati ok/chyba
+Detail zariadenia:
+	editacia veci k zariadeniu (parametre, kpi, popis), moznost zariadenie vymazat
+
+Admin:
+To ci je admin sa zisti podla atributu admin
+To iste co registrovany + admin page na ktorom vidi vsetkychy uzivatelov a vie s nimi manipulovat
+
+Broker:
+Asi specialny button pri prihlasovani.
+Zariadenia screen: vidi vsetky zariadenia a vie menit hodnoty ich parametrov. zariadenia vie vyhladat podla systemu/id

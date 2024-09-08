@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+{% block title %} Moje systemy {% endblock %}
+{% block content %}
+
+<div style="padding-top: 2%;"></div>
+<h2> Moje systemy: </h2>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 30%">Nazov</th>
+        <th scope="col" style="width: 30%">Popis</th>
+        <th scope="col" style="width: 30%">Vlastnik</th>
+        <th scope="col" style="width: 10%">Stav KPI</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for y in mojesystemy %}
+      <tr>
+          <td><a href="/DetailSystemu/{{y.id}}">{{ y.system }}</a></td>
+          <td>{{ y.popis }}</td>
+          <td> 
+          <span style="color:green"> {{ y.vlastnik }} (Vy) </span> 
+          </td>
+          <td> {% if y.paramok == 1 %} <span style="color: green">V poriadku</span> {% else %} <span style="color: red">Chyba</span> {% endif %} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+<a href="/pridatsystem/" class="btn btn-primary">Pridat system</a>
+</div>
+
+
+
+
+<div style="padding-top: 25px; margin-left: 12%; margin-right: 1%;">
+<h2> Ostatne systemy: </h2>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 30%">Nazov</th>
+        <th scope="col" style="width: 30%">Popis</th>
+        <th scope="col" style="width: 30%">Vlastnik</th>
+        <th scope="col" style="width: 10%">Stav KPI</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for y in systemy %}
+      <tr>
+          <td><a href="/DetailSystemu/{{y.id}}">{{ y.system }}</a></td>
+          <td>{{ y.popis }}</td>
+          <td> 
+          {{ y.vlastnik }}
+          </td>
+          <td> {% if y.paramok == 1 %} <span style="color: green">V poriadku</span> {% else %} <span style="color: red">Chyba {% endif %}</span> </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block styles %}
+.mybutton {
+    position: absolute;
+    margin-top: 3%;
+    right: 25%;
+    font-size: 18px;
+}
+
+.left {
+    left:20%;
+    text-align: left;
+}
+
+.stred {
+    margin-left: 2%;
+    margin-right: 20%;
+}
+
+{% endblock %}
+{% block title %} Úprava systemu {% endblock %}
+{% block content %}
+{% if user.id == owner.id %}
+<div class="mybutton">
+    <form method="POST">
+        {%csrf_token%}
+        <button type="submit" name="delsys" value={{ system.id }} class="btn btn-danger">Odstrániť systém</button>
+    </form>
+</div>
+<div style="padding-top: 25px;"></div>
+
+<h3> Úprava systému <b>{{ system.nazov }}</b> </h3>
+{{ system.popis }} <br></br>
+<div class="stred">
+<form class="form" method="POST" action="">
+    {% csrf_token %}
+    <div class="form-group mb-2">
+            <div class="col-xs-5">
+            <label for="nazov">Zmeniť názov</label>
+            <input type="text" class="form-control" name="nazov" id="nazov" value={{ system.nazov }}>
+            <div style="padding-top: 15px;"></div>
+            <label for="nazov">Zmeniť popis</label>
+            <input type="text" class="form-control" id="popis" name="popis" value={{ system.popis }}>
+            <div style="padding-top: 10px;"></div>
+            <button type="submit" name="id" value={{ system.id }} class="btn btn-primary">Uložiť zmeny</button>
+            </div>
+    </div> 
+</form>
+</div>
+
+
+
+
+
+
+
+{% else %}
+<h3> Na úpravu tohto systému nemáte oprávnenie </h3>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Broker{% endblock %}
+{% block sidebar %}
+<div style="position: absolute; bottom: 0;"class="d-flex align-content-end flex-wrap">
+    <a href="/logout">Odhlasit sa</a></span></div>
+{% endblock %}
+{% block content %}
+<form class="form" method="POST">
+{% csrf_token %}
+<div style="margin-top: 2%;"></div>
+{% for z in zariadenia %}
+<h5> Zariadenie <b>{{ z.nazov }}</b> (alias {{ z.alias }} ) uzivatela {{ z.uzivatel.username }}
+    <div style="margin-right: 50%;">
+    <ul>
+        {% for p in z.parameter_set.all %}
+        <li>
+            <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+            <label for="{{ p.id }}">{{ p.nazov }} </label> &emsp;
+            <input type="text" class="form-control" name="{{ p.id }}" id="{{ p.id }}" value={{ p.hodnota }}>
+            </div>
+        </li>
+        {% endfor %}
+    </ul> 
+    </div>
+{% endfor %}
+<button type="submit" name="id" value={{ system.id }} class="btn btn-primary">Uložiť zmeny</button>
+</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Poziadat o system {% endblock %}
+{% block content %}
+<p>Vyberte sytem, o ktory chcete poziadat:</p>
+    {% for y in zariadenia %} 
+        <form method="POST">
+            {%csrf_token%}
+            {{ y.nazov }} &emsp;
+            {% if y in requested %}
+            - Poziadane
+            {% elif y in approved %}
+            - Potvrdene
+            {% else %}
+            <button name="req" type="submit" value={{ y.id }} >Poziadat</button>
+            {% endif %}
+        </form> 
+    {% endfor %}
+{% endblock %}

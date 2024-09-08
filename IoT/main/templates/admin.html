@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+<html>
+    {% load diclookup %}
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    {% block styles %}
+    h2 {
+      text-align: center;
+      }
+      form { 
+      margin: 0 auto; 
+      width: 250px;
+      text-align: center;
+      }
+      .collapsible {
+      background-color: #777;
+      color: white;
+      padding: 18px;
+      border: black;
+      }
+      .collapsible:empty {
+      display: none;
+      padding: 0px;
+      margin: 0px;
+      }
+    {% endblock %}
+  </style>
+{% block title %} Admin page {% endblock %}
+{% block content %}
+{% if user.is_authenticated and user.userextend.privilige_level == 2 %}
+  <h2>Vyberte uzivatela ktoreho chcete upravit:</h2>
+  {% with userId=user.id %}  
+  <div class="container-fluid center">
+    <div class="row">
+      <div class="col-sm d-flex justify-content-end">
+        <a href="/user/{{user.id}}/systems/">{{user.username}} (Vy)</a>
+        {% if userDevices|get_item:userId %}
+        <button class="button ml-2" type="button" data-toggle="collapse" data-target="#collapseUser{{user.id}}" aria-expanded="false" aria-controls="collapseUser{{user.id}}">Show devices</button>
+        {% endif %}
+      </div>
+      <div class="col-sm d-flex justify-content-start">
+        <div>
+          <form class="form-inline" action="/modifyPrivilege/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="userId" value="{{user.id}}">
+            <div class="d-flex flex-row">
+              <div class="col-sm d-flex">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="privilegeLevel" id="inlineRadio1" value="1" {% if user.userextend.privilige_level == 1 %} checked {% endif %} disabled>
+                  <label class="form-check-label" for="inlineRadio1">User</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="privilegeLevel" id="inlineRadio2" value="2" {% if user.userextend.privilige_level == 2 %} checked {% endif %} disabled>
+                  <label class="form-check-label" for="inlineRadio2">Admin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="privilegeLevel" id="inlineRadio3" value="3" {% if user.userextend.privilige_level == 3 %} checked {% else %} disabled {% endif %}>
+                  <label class="form-check-label" for="inlineRadio3">Broker</label>
+                </div>
+              </div>
+              <div class="col-sm d-flex">
+                <button type="submit" class="button" disabled>Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm d-flex justify-content-center">
+        <div class="collapse collapsible" id="collapseUser{{user.id}}">
+        {% if userDevices|get_item:userId %}
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 60%">Zariadenie</th>
+              <th scope="col" style="width: 40%">Systém</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for device in userDevices|get_item:userId %}
+            <tr>
+              <td>{{device.nazov}}</td>
+              <td><a href="/DetailSystemu/{{device.system.id}}">{{device.system.nazov}}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+  {% for dbUser in users %} 
+  {% if dbUser.id != user.id %}
+  {% with dbUserId=dbUser.id %}
+    <div class="row">
+      <div class="col-sm d-flex justify-content-end">
+        <a href="/user/{{dbUserId}}/systems/">{{dbUser.username}}</a>
+        {% if userDevices|get_item:dbUserId %}
+        <button class="button ml-2" type="button" data-toggle="collapse" data-target="#collapseUser{{dbUserId}}" aria-expanded="false" aria-controls="collapseUser{{dbUserId}}">Show devices</button>
+        {% endif %}
+      </div>
+      <div class="col-sm d-flex justify-content-start">
+        <div>
+          <form class="form-inline" action="/modifyPrivilege/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="userId" value="{{dbUserId}}">
+            <div class="d-flex flex-row">
+              <div class="col-sm d-flex">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="privilegeLevel" id="inlineRadio1" value="1" {% if dbUser.userextend.privilige_level == 1 %} checked {% endif %}>
+                  <label class="form-check-label" for="inlineRadio1">User</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="privilegeLevel" id="inlineRadio2" value="2" {% if dbUser.userextend.privilige_level == 2 %} checked {% endif %}>
+                  <label class="form-check-label" for="inlineRadio2">Admin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="privilegeLevel" id="inlineRadio3" value="3" {% if dbUser.userextend.privilige_level == 3 %} checked {% endif %} disabled>
+                  <label class="form-check-label" for="inlineRadio3">Broker</label>
+                </div>
+              </div>
+              <div class="col-sm d-flex">
+                <button type="submit" class="button">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm d-flex justify-content-center">
+        <div class="collapse collapsible" id="collapseUser{{dbUserId}}" style="padding:8px">
+          {% if userDevices|get_item:dbUserId %}
+          <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 60%">Zariadenie</th>
+                <th scope="col" style="width: 40%">Systém</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for device in userDevices|get_item:dbUserId %}
+              <tr>
+                <td>{{device.nazov}}</td>
+                <td><a href="/DetailSystemu/{{device.system.id}}">{{device.system.nazov}}</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+  {% endif %}
+  {% endfor %} 
+  </div>
+{% endif %}
+{% endblock %}

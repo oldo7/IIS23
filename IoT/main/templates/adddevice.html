@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Pridat zariadenie do systemu {{ system.nazov }} {% endblock %}
+{% block content %}
+
+<div style="margin-right: 15%; margin-left: 15%;">
+    <p style="font-size: 20px; margin-top: 30px;"> Pridat zariadenie do systemu {{ system.nazov }} </p>
+    <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nazov</th>
+            <th scope="col">Alias</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for z in zariadenia %}
+          <tr>
+            <td style="width: 5%">{{ z.id }}</td>
+            <td style="width: 42.5%">{{ z.nazov }}</td>
+            <td style="width: 50%">{{ z.alias }}</td>
+            <td style="width: 2.5%">
+                <form method="POST">
+                    {%csrf_token%}
+                    <button type="submit" class="btn btn-primary btn-sm", name="add", value={{ z.id }}>Pridať</button>
+                </form></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
